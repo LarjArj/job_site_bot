@@ -40,7 +40,7 @@ words_phrases = Words_Phrases()
 
 class Pattern_Manager:
     def __init__(self):
-        self.cache=[]
+        self.cache={}
 
         self.tokenized_sent = words_phrases.tokenized_by_sentence
         self.extractedNP = getPattern(NounPhrase,self.tokenized_sent,'NP')
@@ -52,6 +52,7 @@ class Pattern_Manager:
         self.NP_nC2_scores = similarityScore(phraseCombinations(self.extractedNP))
         self.AP_nC2_scores = similarityScore(phraseCombinations(self.extractedAP))
 
+
 def parseTree(tree, target):
     from nltk import Tree
     string = []
@@ -59,7 +60,8 @@ def parseTree(tree, target):
     for i in range(len(tree)):
         child = tree[i]
         if isinstance(child,Tree) and child.label()==target:
-            targetFound = not targetFound
+            if targetFound == False:
+                targetFound = not targetFound
             for j in range(len(child)):
                 string.append(child[j][0])
         else:

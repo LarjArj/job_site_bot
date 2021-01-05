@@ -11,22 +11,13 @@ def traverse():
 	Browser.setBrowser_Url('https://www.indeed.com/jobs?q=software%20engineer&l&ts=1604546936908&rq=1&rsIdx=2&fromage=last&newcount=4153&vjk=4d5675f328bae7ed')
 	browser = Browser.browser
 
-	#browser = webdriver.Chrome(ChromeDriverManager().install())
-	#browser.get('https://www.indeed.com/jobs?q=software%20engineer&l&ts=1604546936908&rq=1&rsIdx=2&fromage=last&newcount=4153&vjk=4d5675f328bae7ed')
 	time.sleep(4)
 	increment=1
 	
 
 	# ## Just a reminder that I need to do some exception and error handling for the most part 
 
-	#try:
-		#pass
-	#except expression as identifier:
-		#pass
-	#else:
-		#pass
-
-	second_ranges = [[4.874672224,8.42234222],[3.324444,7.43221]]  # random time ranges 
+	second_ranges = [[4.87,8.44],[3.32,7.43]]  # random time ranges 
 	#to delay clicking on website elements and avoid triggering captcha protocols
 	alternate = False
 	nextPage = True
@@ -40,11 +31,11 @@ def traverse():
 		alternate = not alternate
 		elems=browser.find_elements_by_css_selector(".clickcard")
 
-		for job,i in enumerate(elems):
+		for i,job in enumerate(elems):
 			try:
 				seconds = random.uniform(sec[0],sec[1])
 				time.sleep(seconds)
-				i.click()
+				job.click()
 				container=browser.find_element_by_xpath("//*[(@id = 'vjs-container-iframe')]")
 			
 				#switch into i-frame # not acessible otherwise
@@ -53,17 +44,18 @@ def traverse():
 				desc = browser.find_element_by_css_selector(".jobsearch-JobComponent-embeddedBody").text
 				jobList.append(desc)
 				browser.switch_to.default_content()
-
-
+			except:
+				print("selenium traversal error")
 
 		increment+=1
 		pg=str(increment)
 		next_page = browser.find_element_by_link_text(pg)
-		if next_page == [] or nextPage == False:
+
+		if next_page == [] or nextPage == False or next_page is None:
 			return
 
 		seconds=random.uniform(1.4544,5.522232)
-		time.sleep(3)
+		time.sleep(seconds)
 		next_page.click()
 		popup=browser.find_elements_by_xpath("//*[@id='popover-x']/button")
 		if len(popup)>0:
@@ -100,3 +92,9 @@ class BrowserManager:
 #window_after = driver.window_handles[1]
 #driver.switch_to.window(window_after)
 #new window
+
+
+
+
+#browser = webdriver.Chrome(ChromeDriverManager().install())
+	#browser.get('https://www.indeed.com/jobs?q=software%20engineer&l&ts=1604546936908&rq=1&rsIdx=2&fromage=last&newcount=4153&vjk=4d5675f328bae7ed')
