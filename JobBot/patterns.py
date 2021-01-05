@@ -12,20 +12,29 @@ from difflib import SequenceMatcher
 
 words_phrases = Words_Phrases()
 
-#Sample Syntax
+#nltk library used for tagging and chunking words/phrases
+
+# some common tags found here #https://pythonprogramming.net/natural-language-toolkit-nltk-part-speech-tagging/
+# example of chunking #https://pythonprogramming.net/chunking-nltk-tutorial/
+
+#Sample Syntax for nltk chunking regex expressions 
+
 #"NP: {<DT>?<JJ>*<NN>}" 
 #r""" N: {<DT|JJ|VBG.*>+} 
 #     P: {<IN>}""""
-# build great big and projects
 
-#NP = NounPhrase
-#VP = VerbPhrase
+# To keep as simple as possible I have centered on 3-4 
+# patterns of types of phrases (this is just for now, may need some revision as time goes forward)
 
-#PP = PrepPhrasw
+#NP = NounPhrase ex  "Computer Knowledge" then whatever follows after 
+#VP = VerbPhrase ex " programming with python and building sustainable systems" then whatever follows after
+#NPP = NounPrepPhrase ex # (not implemented yet)
+#AP= Adjective Phrase # "good with computers" "skilled at match" then whatever follows after
 
-#AP= Adjective Phrase
+#basic idea is to use certain tags and slice the rest of the phrase since the entire scraped text is split by sentence 
+# this may lead to certain phrases being duplicated but perhaps this can be overcome with some simple caching
 
-#nltk.chunk output looks something like this
+#nltk.chunk output looks something like this, output can be tricky to work with since 
 #[Tree('S', [Tree('VP', [('creating', 'VBG')]), ('great', 'JJ'), ('big', 'JJ'), ('and', 'CC'), ('projects', 'NNS')])]
 
 
@@ -81,7 +90,7 @@ def phraseCombinations(phrases):
     
 def similarityScore(pairCombo):
     scores = []
-    for combo in pairCombo:
+    for combo in pairCombo: # sequence matcher func is inbuilt
         score =  SequenceMatcher(None, combo[0], combo[1]).ratio()
         scores.append((combo[0],combo[1],score))
     return scores.sort(key=lambda ele: ele[2])

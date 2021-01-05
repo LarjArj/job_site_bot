@@ -19,7 +19,7 @@ class Words_Phrases:
         self.lowercase_tokens = [token.lower() for token in tokens]
         self.tokenized_by_sentence = tokenize_sentences(self.jobs_str)
 
-        self.taggedWords = None
+        self.taggedWords = [classify(token) for token in self.lowercase_tokens]
 
         self.tokenFrequency = getFrequency(self.lowercase_tokens)
         self.bigrams,self.trigrams = None, None
@@ -29,6 +29,8 @@ class Words_Phrases:
         self.similarPhrases = None
         self.frequencyOfKeywords = None
         self.frequencyOfSimilarPhrases = {}
+    
+
 
 
 
@@ -47,15 +49,21 @@ def tokenize(string):
         newTokens.append(char)
     return newTokens
 
-def tokenize_sentences(string):
+def tokenize_sentences(string): #tokenizes and tags by sentence,
     custom_sent_tokenizer = PunktSentenceTokenizer(string)
     tokenized = custom_sent_tokenizer.tokenize(string)
     new = []
     for sentence in tokenized:
-        sent = re.split("' '|\n|\n\n|/|,|'”'|(|)|: ",sentence)
-        newSent = "".join(sent)
-        new.append(newSent)
-    return new
+        tagged = []
+        sent = re.split("' '|\n|\n\n|/|,|'”'|(|)|:",sentence)
+        for word in sent:
+            tagged.append(classifyWord(word))
+        
+        new.append(tagged)
+
+
+            
+    return  new
 
 
 
@@ -69,9 +77,8 @@ def getFrequency(words):
     return table
 
 
-def get_Bi_Tri_grams():
-
-    pass
+def get_Bi_Tri_grams(string):
+    return (nltk.bigrams(string),nltk.trigrams(string))
 
 
 def getPhrases(String,pattern):
@@ -83,21 +90,15 @@ def getSimilarPhrases(phrases):
 
 
 
-def classifyWord(self,word):
-    taggedWords=[]
-    tokens = self.tokens_lowercase
-    for token in tokens:
-        word = nltk.word_tokenize(token)
-        tagged = nltk.pos_tag(word)
-        if tagged[0][0] == tagged[0][1]:
-            tagged[0][1] = "UNTAG"
-                                      # Reason for this is because 
-                                    # nltk.pos_tag  #returns a 2-D array in the form of  ["cat","NN"]
-            taggedWords.append(tagged)  
-            continue
-        taggedWords.append(tagged[0])
-
-    return taggedWords
+def classifyWord(token):
+    
+    word = nltk.word_tokenize(token)
+    tagged = nltk.pos_tag(word)
+    if tagged[0][0] == tagged[0][1]:
+        tagged[0][1] = "UNTAG"
+                                      # Reason for this if statement is because 
+                                      # # nltk.pos_tag  #returns a 2-D array in the form of  ["cat",
+    return tagged
 
 
 

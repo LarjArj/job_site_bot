@@ -17,7 +17,8 @@ def traverse():
 	increment=1
 	
 
-	#clock
+	# ## Just a reminder that I need to do some exception and error handling for the most part 
+
 	#try:
 		#pass
 	#except expression as identifier:
@@ -38,25 +39,29 @@ def traverse():
 
 		alternate = not alternate
 		elems=browser.find_elements_by_css_selector(".clickcard")
+
 		for job,i in enumerate(elems):
-			seconds = random.uniform(sec[0],sec[1])
-			time.sleep(seconds)
-			i.click()
-			container=browser.find_element_by_xpath("//*[(@id = 'vjs-container-iframe')]")
+			try:
+				seconds = random.uniform(sec[0],sec[1])
+				time.sleep(seconds)
+				i.click()
+				container=browser.find_element_by_xpath("//*[(@id = 'vjs-container-iframe')]")
 			
-			#switch into i-frame
-			browser.switch_to.frame(container)
-			# add attributes
-			desc = browser.find_element_by_css_selector(".jobsearch-JobComponent-embeddedBody").text
-			jobList.append(desc)
-			browser.switch_to.default_content()
+				#switch into i-frame # not acessible otherwise
+				browser.switch_to.frame(container)
+				# add attributes
+				desc = browser.find_element_by_css_selector(".jobsearch-JobComponent-embeddedBody").text
+				jobList.append(desc)
+				browser.switch_to.default_content()
+
+
 
 		increment+=1
 		pg=str(increment)
-		
 		next_page = browser.find_element_by_link_text(pg)
 		if next_page == [] or nextPage == False:
 			return
+
 		seconds=random.uniform(1.4544,5.522232)
 		time.sleep(3)
 		next_page.click()
@@ -66,6 +71,8 @@ def traverse():
 				time.sleep(2)
 				i.click()
 	return jobList
+
+
 
 
 
