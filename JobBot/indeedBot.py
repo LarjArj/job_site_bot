@@ -6,10 +6,9 @@ import random
 import time
 
 def traverse():
-	jobList={}
+	jobList=[]
 	Browser=BrowserManager()
 	Browser.setBrowser_Url('https://www.indeed.com/jobs?q=software%20engineer&l&ts=1604546936908&rq=1&rsIdx=2&fromage=last&newcount=4153&vjk=4d5675f328bae7ed')
-	print("hello")
 	browser = Browser.browser
 
 	#browser = webdriver.Chrome(ChromeDriverManager().install())
@@ -26,11 +25,21 @@ def traverse():
 	#else:
 		#pass
 
-	second_ranges = [[2.874672224,5.42234222],[3.324444,4.43221]]
-	for val in range(1,15):
+	second_ranges = [[4.874672224,8.42234222],[3.324444,7.43221]]  # random time ranges 
+	#to delay clicking on website elements and avoid triggering captcha protocols
+	alternate = False
+	nextPage = True
+	while nextPage:
+		sec=[]
+		if alternate:
+			sec=second_ranges[0]
+		else:
+			sec=second_ranges[1]
+
+		alternate = not alternate
 		elems=browser.find_elements_by_css_selector(".clickcard")
 		for job,i in enumerate(elems):
-			seconds = random.uniform(2.233132899999999,4.56777799999212222)
+			seconds = random.uniform(sec[0],sec[1])
 			time.sleep(seconds)
 			i.click()
 			container=browser.find_element_by_xpath("//*[(@id = 'vjs-container-iframe')]")
@@ -38,19 +47,21 @@ def traverse():
 			#switch into i-frame
 			browser.switch_to.frame(container)
 			# add attributes
-			title_desc = browser.find_element_by_css_selector(".jobsearch-JobComponent-embeddedBody").text
-			jobList[job] = title_desc
+			desc = browser.find_element_by_css_selector(".jobsearch-JobComponent-embeddedBody").text
+			jobList.append(desc)
 			browser.switch_to.default_content()
 
 		increment+=1
 		pg=str(increment)
 		
 		next_page = browser.find_element_by_link_text(pg)
+		if next_page == [] or nextPage == False:
+			return
 		seconds=random.uniform(1.4544,5.522232)
 		time.sleep(3)
 		next_page.click()
 		popup=browser.find_elements_by_xpath("//*[@id='popover-x']/button")
-		if len(captcha)>0:
+		if len(popup)>0:
 			for i in popup:
 				time.sleep(2)
 				i.click()
