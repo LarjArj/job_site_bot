@@ -1,0 +1,63 @@
+
+
+Tentative Due Date: Want to be able to make a formal post of this 
+project on github/linkedin by Sunday . Realize it will be far from perfect
+but atleast I have time for it gain traction.
+
+
+
+Goal Of Project
+
+Create a bot that scrapes job postings on Indeed.com(for now, maybe more in the future) 
+based on user input. For instance, if a user inputs "Software Engineer" or "Accountant" or
+"Attorney" as "Job Title". This will scrape those postings and give the user a statistical 
+summary of the most frequent phrases and keywords. This will allow the user to focus on skills,
+requirments or other points of interest that are relavant to their industry, basically giving them 
+a glimpse into what employers are looking for instead of having to manually scroll through listing 
+after listing. This is most ideal for those in techincal careers which require being up to date on the
+latest trends, technologies and paradigms, but can be used for anyone.
+
+
+
+High Level Structure of Project
+
+
+1) Traversal of indeed.com with selenium
+
+Associated Files - indeedBot.py
+
+Working well for the most part, however there is still some error/exception handling needed
+. Cannot completely avoid Captcha and inherent anti scraping mechanisms of indeed.com
+However, provided the user is responsible and keeps time ranges in that are more less akin to 
+a human user would traverse a website, this code should work fine
+
+2) extraction of keywords and phrases  
+Assoicated Files- NLP.py  , parse.py, patterns.py
+
+Sucessful Implementation of core ideas, however there may be some ineffeciences 
+and irregularities that may need to be adressed 
+
+
+3) statisical findings of extracted text 
+Associated Files- statistics_graphing.py
+
+- not much done here yet
+
+4) Graphing/Presentation -
+Assoicated Files- statistics_graphing.py
+
+- not much done here yet
+
+
+
+5) Some functionality to handle frequency by which user allows script to requirments and 
+link to email to eventually send results
+Assoicated Files- None Yet
+
+6) Simple but elegant UI tying everything together
+Assoicated Files- None Yet
+
+
+Basically So Far I have a good understandning of what I the project to accomplish,
+but now I need to tie everything together and take care of some ireegualrities
+throughout the different stages of the project
