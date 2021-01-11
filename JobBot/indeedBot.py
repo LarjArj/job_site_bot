@@ -17,7 +17,7 @@ def traverse():
 
 	# ## Just a reminder that I need to do some exception and error handling for the most part 
 
-	second_ranges = [[4.87,8.44],[3.32,7.43]]  # random time ranges 
+	second_ranges = [[4.87,8.44],[3.32,.43]]  # random time ranges 
 	#to delay clicking on website elements and avoid triggering captcha protocols
 	alternate = False
 	nextPage = True

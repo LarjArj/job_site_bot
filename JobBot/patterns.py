@@ -29,7 +29,7 @@ words_phrases = Words_Phrases()
 #NP = NounPhrase ex  "Computer Knowledge" then whatever follows after 
 #VP = VerbPhrase ex " programming with python and building sustainable systems" then whatever follows after
 #NPP = NounPrepPhrase ex # (not implemented yet)
-#AP= Adjective Phrase # "good with computers" "skilled at match" then whatever follows after
+#APP= Adjective Prepositional Phrase # "good with computers" "skilled at match" then whatever follows after
 
 #basic idea is to use certain tags and slice the rest of the phrase since the entire scraped text is split by sentence 
 # this may lead to certain phrases being duplicated but perhaps this can be overcome with some simple caching
@@ -45,12 +45,13 @@ class Pattern_Manager:
         self.tokenized_sent = words_phrases.tokenized_by_sentence
         self.extractedNP = getPattern(NounPhrase,self.tokenized_sent,'NP')
         self.extractedVP = getPattern(VerbPhrase,self.tokenized_sent,'VP')
-        self.extractedAP = getPattern(AdjPhrase,self.tokenized_sent,'AP')
+        self.extractedAPP = getPattern(AdjPhrase,self.tokenized_sent,'AP')
 
-
+ 
         self.VP_nC2_scores = similarityScore(phraseCombinations(self.extractedVP))
         self.NP_nC2_scores = similarityScore(phraseCombinations(self.extractedNP))
-        self.AP_nC2_scores = similarityScore(phraseCombinations(self.extractedAP))
+        self.APP_nC2_scores = similarityScore(phraseCombinations(self.extractedAP))
+
 
 
 def parseTree(tree, target):
@@ -68,13 +69,19 @@ def parseTree(tree, target):
             string.append(child[0])
     
     return "".join(string) if targetFound else None
+
+def chunker(pattern,phrase):
+    chunkedPhrase = nltk.RegexpParser(pattern)
+    tree=chunkedPhrase.parse(phrase)
+    return tree
+    
     
             
-def getPattern(sentences,pattern,phrase_type):
+def getPattern(sentences,phrase_type):
     phrases = []
+    pattern = chunckPatterns[phrase_type]
     for sent in sentences:
-        chunkedPhrase=nltk.RegexpParser(pattern)
-        tree=chunkedPhrase.parse(sent)
+        tree=chuncker(pattern,sent)
         string=parseTree(tree,phrase_type) 
         if string is None:
             continue
@@ -97,11 +104,26 @@ def similarityScore(pairCombo):
         scores.append((combo[0],combo[1],score))
     return scores.sort(key=lambda ele: ele[2])
 
+def getCriticalPOF(phrase,phraseType):
+    from nltk import Tree
+    output = []
+    partOfPhrase = []
+    pattern = chunckPatterns[phraseType]
+    chunckedPhrase = nltk.RegexpParser(pattern)
+    tree = chunckedPhrase.parse(phrase)
+    for i in range(len(tree)):
+        child = tree[i]
+        if isinstance(child,Tree) and child.label()==target:
+            for j in range(len(child)):
+                partOfPhrase.append((child[j][0]))
+            output.append(" ".join(partOfPhrase))
+            partOfPhrase=[]
+    return output
 
 
 
 VerbPhrase = r"""
-VP: {<VB|VBD|VBG|VBN|VBP|VBZ*>+} 
+VP: {<VB|VBD|VBG|VBN|VBP|VBZ|CVB*>+} 
 """
 
 AdjPhrase = r""" 
@@ -115,3 +137,6 @@ NP: {<NN|NNS|NNP|NNPS><NN|NNS|NNP|NNPS>+}
 NounPrepPhrase = r""" 
 NPP: {<NN|NNS|NNP|NNPS><IN|TO>+} 
 """
+
+
+chunckPatterns = {"VP":VerbPhrase,"AP":AdjPhrase,"NP":NounPhrase,"NPP":NounPrepPhrase}

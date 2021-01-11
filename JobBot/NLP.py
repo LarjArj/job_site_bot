@@ -23,7 +23,6 @@ class NLP_Manager:
 
 
 
-
 #stopwords = list(STOP_WORDS)
 
 #jobDescList=indeedBot.traverse()
