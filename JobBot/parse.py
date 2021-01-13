@@ -57,7 +57,8 @@ def tokenize_sentences(string): #tokenizes and tags by sentence,
         tagged = []
         sent = re.split("' '|\n|\n\n|/|,|'”'|(|)|:",sentence)
         for word in sent:
-            tagged.append(classifyWord(word)[0])
+            classified =classifyWord(word)
+            tagged.append(classified[0])
         
         new.append(tagged)
 

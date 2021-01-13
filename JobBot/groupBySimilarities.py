@@ -8,7 +8,7 @@ from patterns import Pattern_Manager
 patterns_manager = Pattern_Manager()
 
 #looking out for four main Phrase Types
-# VP : Verb Phrase  
+ #VP : Verb Phrase  
 
 #  possible sub-types of a "VP" phrase
                               #examples          Verb                                 Noun
@@ -16,7 +16,7 @@ patterns_manager = Pattern_Manager()
 
 VerbPhraseNoun = r"""
 VP: {<VB|VBD|VBG|VBN|VBP|VBZ|CVB*>+} 
-N: {<NN|NNS|NNP|NNPS>+} 
+N: {<NN|NNS|NNP|NNPS>+}      #program computers
 """
 
 
@@ -30,7 +30,7 @@ N: {<NN|NNS|NNP|NNPS>+}
 #  4)  ending as a verb  |   "blah blah blah .... team building"
 
 
-# APP : Adjective Prepositional Phrases
+ #APP : Adjective Prepositional Phrases
 
 #   examples
 #   "good at"   | "skilled in " | "experienced with" | 
@@ -68,7 +68,7 @@ class Similarity_Analyzer:
 
         self.APP=self.bucketPhrases(patterns_manager.AP_nC2_scores,self.similarityScoreRanges)
         self.NP=self.bucketPhrases(patterns_manager.NP_nC2_scores,self.similarityScoreRanges)
-        self.VP=.self.bucketPhrases(patterns_manager.VP_nC2_scores,self.similarityScoreRanges)
+        self.VP=self.bucketPhrases(patterns_manager.VP_nC2_scores,self.similarityScoreRanges)
 
 
     # since similar phrases have been sorted based on similarity

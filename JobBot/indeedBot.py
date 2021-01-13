@@ -45,7 +45,15 @@ def traverse():
 				jobList.append(desc)
 				browser.switch_to.default_content()
 			except:
-				print("selenium traversal error")
+				#print("selenium traversal error")
+				window_before = browser.window_handles[0]
+				window_after  = browser.window_handles[1]
+				browser.switch_to(window_after)
+				desc=browser.find_element_by_id('jobDescriptionText').text
+				jobList.append(desc)
+				browser.close()
+				browser.switch_to(window_before)
+				
 
 		increment+=1
 		pg=str(increment)
@@ -97,4 +105,4 @@ class BrowserManager:
 
 
 #browser = webdriver.Chrome(ChromeDriverManager().install())
-	#browser.get('https://www.indeed.com/jobs?q=software%20engineer&l&ts=1604546936908&rq=1&rsIdx=2&fromage=last&newcount=4153&vjk=4d5675f328bae7ed')
+#browser.get('https://www.indeed.com/jobs?q=software%20engineer&l&ts=1604546936908&rq=1&rsIdx=2&fromage=last&newcount=4153&vjk=4d5675f328bae7ed')

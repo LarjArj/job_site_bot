@@ -100,7 +100,7 @@ def phraseCombinations(phrases):
 def similarityScore(pairCombo):
     scores = []
     for combo in pairCombo: # sequence matcher func is inbuilt
-        score =  SequenceMatcher(None, combo[0], combo[1]).ratio()
+        score =  SequenceMatcher(None, combo[0], combo[1]).ratio()  
         scores.append((combo[0],combo[1],score))
     return scores.sort(key=lambda ele: ele[2])
 
