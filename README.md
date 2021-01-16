@@ -1,6 +1,6 @@
 # job_site_bot
 
-Goal 
+GOAL:
 
 Simple UI that takes in input of Job Title and Location
 
