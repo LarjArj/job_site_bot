@@ -44,6 +44,8 @@ class Stats_Graph_Manager:
 def graph(self):
 
     #still thinking about what would be the best way to do so
+
+    # Strategy for no
     pass
         
 

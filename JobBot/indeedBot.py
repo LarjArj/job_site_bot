@@ -2,22 +2,31 @@ import sys
 import selenium
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.keys import Keys
 import random
 import time
 
-def traverse():
+
+### Functionality that handles the actual scraping of indeed.com based on input of JobTitile and Location from UI
+def traverse(jobTitle,location):
 	jobList=[]
 	Browser=BrowserManager()
-	Browser.setBrowser_Url('https://www.indeed.com/jobs?q=software%20engineer&l&ts=1604546936908&rq=1&rsIdx=2&fromage=last&newcount=4153&vjk=4d5675f328bae7ed')
+	Browser.setBrowser_Url('https://www.indeed.com')
 	browser = Browser.browser
+
+	jobInput = browser.find_element_by_name("q")
+	locationInput =browser.find_element_by_name("l")
+	locationInput.send_keys(location)
+
+	jobInput.send_keys(jobTitle,Keys.ENTER)
+
 
 	time.sleep(4)
 	increment=1
 	
 
-	# ## Just a reminder that I need to do some exception and error handling for the most part 
-
-	second_ranges = [[4.87,8.44],[3.32,.43]]  # random time ranges 
+	
+	second_ranges = [[5.87,9.44],[3.32,10.43]]  # random time ranges 
 	#to delay clicking on website elements and avoid triggering captcha protocols
 	alternate = False
 	nextPage = True
@@ -32,28 +41,50 @@ def traverse():
 		elems=browser.find_elements_by_css_selector(".clickcard")
 
 		for i,job in enumerate(elems):
+			seconds = random.uniform(sec[0],sec[1])
 			try:
-				seconds = random.uniform(sec[0],sec[1])
+				
 				time.sleep(seconds)
 				job.click()
+
+				if tabExists(browser):
+					window_before = browser.window_handles[0]
+					window_after  = browser.window_handles[1]
+					browser.switch_to(window_after)
+					desc=browser.find_element_by_id('jobDescriptionText').text
+					print(desc)
+					jobList.append(desc)
+					browser.close()
+					browser.switch_to(window_before)
+
+					
+					continue
+
 				container=browser.find_element_by_xpath("//*[(@id = 'vjs-container-iframe')]")
 			
 				#switch into i-frame # not acessible otherwise
 				browser.switch_to.frame(container)
 				# add attributes
 				desc = browser.find_element_by_css_selector(".jobsearch-JobComponent-embeddedBody").text
+				print(desc)
 				jobList.append(desc)
 				browser.switch_to.default_content()
 			except:
-				#print("selenium traversal error")
-				window_before = browser.window_handles[0]
-				window_after  = browser.window_handles[1]
-				browser.switch_to(window_after)
-				desc=browser.find_element_by_id('jobDescriptionText').text
-				jobList.append(desc)
-				browser.close()
-				browser.switch_to(window_before)
-				
+				print("selenium traversal error")
+
+
+				#time.sleep(seconds)
+				#window_before = browser.window_handles[0]
+				#time.sleep(seconds)
+				#window_after  = browser.window_handles[1]
+				#print(browser.window_handles)
+				#browser.switch_to(window_after)
+				#desc=browser.find_element_by_id('jobDescriptionText').text
+				#print(desc)
+				#jobList.append(desc)
+				#browser.close()
+				#browser.switch_to(window_before)
+
 
 		increment+=1
 		pg=str(increment)
@@ -61,19 +92,20 @@ def traverse():
 
 		if next_page == [] or nextPage == False or next_page is None:
 			return
-
 		seconds=random.uniform(1.4544,5.522232)
+
 		time.sleep(seconds)
 		next_page.click()
 		popup=browser.find_elements_by_xpath("//*[@id='popover-x']/button")
+		
 		if len(popup)>0:
 			for i in popup:
 				time.sleep(2)
 				i.click()
 	return jobList
 
-
-
+def tabExists(browser):
+	return True if len(browser.window_handles) > 0 else False
 
 
 class BrowserManager:

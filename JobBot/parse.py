@@ -89,10 +89,6 @@ def getSimilarPhrases(phrases):
     pass
 
 
-
-
-
-
 def classifyWord(token): # nltk use of tokenization and tagging words 
     
 

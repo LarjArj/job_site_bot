@@ -99,9 +99,6 @@ class Similarity_Analyzer:
             for phrase in phrases:
                 self.tagPhraseStruct(phrase)
 
-    
-
-
 
    def hasNoun(self,phrase):
         Noun = r"""
