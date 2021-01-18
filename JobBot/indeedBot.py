@@ -30,7 +30,9 @@ def traverse(jobTitle,location):
 	#to delay clicking on website elements and avoid triggering captcha protocols
 	alternate = False
 	nextPage = True
-	while nextPage:
+	counter =0
+	while counter <5: #nextPage:
+		counter += 1
 		sec=[]
 		if alternate:
 			sec=second_ranges[0]
@@ -52,7 +54,7 @@ def traverse(jobTitle,location):
 					window_after  = browser.window_handles[1]
 					browser.switch_to(window_after)
 					desc=browser.find_element_by_id('jobDescriptionText').text
-					print(desc)
+					#print(desc)
 					jobList.append(desc)
 					browser.close()
 					browser.switch_to(window_before)
@@ -66,7 +68,7 @@ def traverse(jobTitle,location):
 				browser.switch_to.frame(container)
 				# add attributes
 				desc = browser.find_element_by_css_selector(".jobsearch-JobComponent-embeddedBody").text
-				print(desc)
+				#print(desc)
 				jobList.append(desc)
 				browser.switch_to.default_content()
 			except:
@@ -105,7 +107,7 @@ def traverse(jobTitle,location):
 	return jobList
 
 def tabExists(browser):
-	return True if len(browser.window_handles) > 0 else False
+	return True if len(browser.window_handles) > 1 else False
 
 
 class BrowserManager:
