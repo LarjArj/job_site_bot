@@ -90,9 +90,6 @@ def getSimilarPhrases(phrases):
 
 
 def classifyWord(token): # nltk use of tokenization and tagging words 
-    
-
-    
     if token[0][0].find('ing') != -1:
         token[0][1]="CVB"  #custom verb
         return word
@@ -104,7 +101,6 @@ def classifyWord(token): # nltk use of tokenization and tagging words
                                       # # nltk.pos_tag  #returns a 2-D array in the form of  [("cat",NN")]
                                      # If tagged array is like both elements in tuple equal each other the
                                      # part of speech was not tagged
-
     return tagged
 
 
