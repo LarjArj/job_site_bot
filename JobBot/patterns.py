@@ -54,13 +54,13 @@ class Pattern_Manager:
 
 
 
-def parseTree(tree, target):
+def parseTree(tree, phrase_type):
     from nltk import Tree
     string = []
     targetFound = False
     for i in range(len(tree)):
         child = tree[i]
-        if isinstance(child,Tree) and child.label()==target:
+        if isinstance(child,Tree) and child.label()==phrase_type:
             if targetFound == False:
                 targetFound = not targetFound
             for j in range(len(child)):
@@ -68,7 +68,7 @@ def parseTree(tree, target):
         else:
             string.append(child[0])
     
-    return "".join(string) if targetFound else None
+    return cleanUp(string) if targetFound else None
 
 def chunker(pattern,phrase):
     chunkedPhrase = nltk.RegexpParser(pattern)
@@ -76,12 +76,11 @@ def chunker(pattern,phrase):
     return tree
     
     
-            
 def getPattern(sentences,phrase_type):
     phrases = []
     pattern = chunckPatterns[phrase_type]
     for sent in sentences:
-        tree=chuncker(pattern,sent)
+        tree=chunker(pattern,sent)
         string=parseTree(tree,phrase_type) 
         if string is None:
             continue
@@ -113,7 +112,7 @@ def getCriticalPOF(phrase,phraseType):
     tree = chunckedPhrase.parse(phrase)
     for i in range(len(tree)):
         child = tree[i]
-        if isinstance(child,Tree) and child.label()==target:
+        if isinstance(child,Tree) and child.label()==phraseType:
             for j in range(len(child)):
                 partOfPhrase.append((child[j][0]))
             output.append(" ".join(partOfPhrase))
@@ -121,6 +120,9 @@ def getCriticalPOF(phrase,phraseType):
     return output
 
 
+def cleanUp(string):
+    new = string.split("\\n")
+    return " ".join(new)
 
 VerbPhrase = r"""
 VP: {<VB|VBD|VBG|VBN|VBP|VBZ|CVB*>+} 

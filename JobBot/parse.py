@@ -55,10 +55,18 @@ def tokenize_sentences(string): #tokenizes and tags by sentence,
     new = []
     for sentence in tokenized:
         tagged = []
-        sent = re.split("' '|\n|\n\n|/|,|'”'|(|)|:",sentence)
+
+        sent = tokenize(sentence)
+        ##sent = re.split("' '|\n|\n\n|/|,|\|'”'|(|)|:",sentence)
         for word in sent:
+
             classified =classifyWord(word)
-            tagged.append(classified[0])
+            if len(classified):
+                tagged.append(classified[0])
+
+            if len(tagged) >=14:
+                new.append(tagged)
+                tagged = []
         
         new.append(tagged)
 
@@ -90,17 +98,20 @@ def getSimilarPhrases(phrases):
 
 
 def classifyWord(token): # nltk use of tokenization and tagging words 
-    if token[0][0].find('ing') != -1:
-        token[0][1]="CVB"  #custom verb
-        return word
-    word = nltk.word_tokenize(token)
-    tagged = nltk.pos_tag(word)
-    if tagged[0][0] == tagged[0][1]:
-        tagged[0][1] = "UNTAGABLE"
-                                      # Reason for this if statement is because               word - tag
+    try:
+        word = nltk.word_tokenize(token)
+        tagged = nltk.pos_tag(word)
+        if tagged[0][0] == tagged[0][1]:
+            tagged[0][1] = "UNTAGABLE"
+    
+        if tagged[0][0].find("ing") != -1:
+            tagged[0][1] = "CVB"
+
+    except:
+        print("error")                                # Reason for this if statement is because               word - tag
                                       # # nltk.pos_tag  #returns a 2-D array in the form of  [("cat",NN")]
                                      # If tagged array is like both elements in tuple equal each other the
-                                     # part of speech was not tagged
+                               # part of speech was not tagged
     return tagged
 
 
