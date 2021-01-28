@@ -9,22 +9,23 @@ from nltk.tokenize import PunktSentenceTokenizer
 import wikipedia
 import re
 
-#Jobs = indeedBot.traverse()
+Jobs = indeedBot.traverse()
 
 class Words_Phrases:
     def __init__(self):
-        #self.jobs = Jobs # Raw Input of all the jobs
-        #self.jobs_str = "".join(self.jobs)
-        #self.tokens = tokenize(self.jobs_str)
-        #self.lowercase_tokens = [token.lower() for token in tokens]
-        #self.tokenized_by_sentence = tokenize_sentences(self.jobs_str)
+        self.jobs = Jobs # Raw Input of all the jobs
+        self.jobs_str = "".join(self.jobs)
 
-        #self.taggedWords = [classify(token) for token in self.lowercase_tokens]
+        self.tokens = tokenize(self.jobs_str)
+        self.lowercase_tokens = [token.lower() for token in tokens]
+
+        self.tokenized_by_sentence = tokenize_sentences(self.jobs_str)
+        self.taggedWords = [classify(token) for token in self.lowercase_tokens]
 
        # self.tokenFrequency = getFrequency(self.lowercase_tokens)
         self.bigrams,self.trigrams = None, None
 
-        self.keywords = None
+        self.keywords = getFrequency(lowercase_tokens)
         self.phrases = None
         self.similarPhrases = None
         self.frequencyOfKeywords = None
