@@ -67,7 +67,8 @@ class Similarity_Analyzer:
         self.APP=self.bucketPhrases(patterns_manager.AP_nC2_scores,self.similarityScoreRanges)
         self.NP=self.bucketPhrases(patterns_manager.NP_nC2_scores,self.similarityScoreRanges)
         self.VP=self.bucketPhrases(patterns_manager.VP_nC2_scores,self.similarityScoreRanges)
-        self.allPhrases=groupByMeaning()
+        groupByMeaning()
+        ##self.allPhrases=phraseStructure = {"VP":{1:[],2:[],3:[],4:[]},"APP":[],"NPP":[],"NN":[]}
 
     # since similar phrases have been sorted based on similarity
     #  this just assigns to buckets based on percentage... bound to be duplicates
