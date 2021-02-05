@@ -1,8 +1,9 @@
 import PySimpleGUI as sg
 
+import NLP
 # Define the window's contents
-layout = [[sg.Text("What kind of job are you interested in")],[sg.Text("Please Enter a Location")]
-          [sg.Input(key='-INPUT-')],
+layout = [[sg.Text("What kind of job are you interested in")],
+          [sg.Input(key='-INPUT-')],[sg.Text("Please Enter a Location")],[sg.Input(key='-INPUT-')],
           [sg.Text(size=(40,1), key='-OUTPUT-')],
           [sg.Button('Ok'), sg.Button('Quit')]]
 
@@ -21,6 +22,12 @@ while True:
 # Finish up by removing from the screen
 window.close()
 
+
+#values=
+
+
+
+
 #while True:
     #event, values = window.read()
     
@@ -28,52 +35,55 @@ window.close()
 
 
 
-#input-clock-output
+# #input-clock-output
 
 
 
-class UI_Manager:
+# class UI_Manager:
 
       
-    def FirstWindow(self):
-        layout = [[sg.Text("What kind of job are you interested in")],
-                 [sg.Text("Please Enter a Location")],[sg.Input(key='-INPUT-')],
-                 [sg.Text(size=(40,1), key='-OUTPUT-')],[sg.Button('Ok'), sg.Button('Quit')]]
+#     def FirstWindow(self):
+#         layout = [[sg.Text("What kind of job are you interested in")],
+#                  [sg.Text("Please Enter a Location")],[sg.Input(key='-INPUT-')],
+#                  [sg.Text(size=(40,1), key='-OUTPUT-')],[sg.Button('Ok'), sg.Button('Quit')]]
 
-    # Create the window
-        window = sg.Window('Job Bot', layout)
+#     # Create the window
+#         window = sg.Window('Job Bot', layout)
 
-# Display and interact with the Window using an Event Loop
-        while True:
-            event, values = window.read()
-        # See if user wants to quit or window was closed
-            if event == sg.WINDOW_CLOSED or event == 'Quit':
-                break
-    # Output a message to the window
-            window['-OUTPUT-'].update('Hello ' + values['-INPUT-'] + "! Thanks for trying Using")
+# # Display and interact with the Window using an Event Loop
+#         while True:
+#             event, values = window.read()
+#         # See if user wants to quit or window was closed
+#             if event == sg.WINDOW_CLOSED or event == 'Quit':
+#                 break
+#     # Output a message to the window
+#             window['-OUTPUT-'].update('Hello ' + values['-INPUT-'] + "! Thanks for trying Using")
 
-# Finish up by removing from the screen
-        window.close()
+# # Finish up by removing from the screen
+#         window.close()
 
 
 
-    def SecondWindow(self):
-        layout = [[sg.Text("What kind of job are you interested in")],sg.Text("Please Enter a Location")]
-            [sg.Input(key='-INPUT-')],
-            [sg.Text(size=(40,1), key='-OUTPUT-')],
-            [sg.Button('Ok'), sg.Button('Quit')]]
+#     def SecondWindow(self):
+#         layout = [[sg.Text("What kind of job are you interested in")],sg.Text("Please Enter a Location")]
+#             [sg.Input(key='-INPUT-')],
+#             [sg.Text(size=(40,1), key='-OUTPUT-')],
+#             [sg.Button('Ok'), sg.Button('Quit')]]
 
-# Create the window
-        window = sg.Window('Job Bot', layout)
+# # Create the window
+#         window = sg.Window('Job Bot', layout)
 
-# Display and interact with the Window using an Event Loop
-        while True:
-            event, values = window.read()
-    # See if user wants to quit or window was closed
-        if event == sg.WINDOW_CLOSED or event == 'Quit':
-            break
-    # Output a message to the window
-            window['-OUTPUT-'].update('Hello ' + values['-INPUT-'] + "! Thanks for trying Using")
+# # Display and interact with the Window using an Event Loop
+#         while True:
+#             event, values = window.read()
+#     # See if user wants to quit or window was closed
+#         if event == sg.WINDOW_CLOSED or event == 'Quit':
+#             break
+#     # Output a message to the window
+#             window['-OUTPUT-'].update('Hello ' + values['-INPUT-'] + "! Thanks for trying Using")
 
-# Finish up by removing from the screen
-        window.close()  
+# # Finish up by removing from the screen
+#         window.close()  
+
+
+        

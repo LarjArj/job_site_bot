@@ -4,14 +4,42 @@ import patterns
 import indeedBot
 from parse import Words_Phrases
 from patterns import Pattern_Manager
+import groupBySimilarities 
+from groupBySimilarities import Similarity_Analyzer
 
 class NLP_Manager:
 
     def __init__(self):
         self.words_phrases = Words_Phrases()
         self.pattern_manager = Pattern_Manager()
+        self.similarity_analyzer = Similarity_Analyzer()
+        self.allPhrases = similarity_analyzer.getAllPhrases()
+        self.jobs = indeedBot.traverse(#jobTitle,#location)
 
-        pattern_manager.VP
+
+
+    def getStatisticallyRelevantPhrases(self,allPhrases):
+        seen = {}
+        StatisticallyRelevantPhrases = []
+        for phrase in allPhrases:
+            if seen[phrase]:
+                continue
+            if phrase not in seen:
+                seen[phrase] = True
+            StatisticallyRelevantPhrases.append(phrase)
+        return StatisticallyRelevantPhrases
+
+
+
+
+    
+
+
+
+
+
+        
+        
 
 
 

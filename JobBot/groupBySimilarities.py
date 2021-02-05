@@ -67,9 +67,11 @@ class Similarity_Analyzer:
         self.APP=self.bucketPhrases(patterns_manager.AP_nC2_scores,self.similarityScoreRanges)
         self.NP=self.bucketPhrases(patterns_manager.NP_nC2_scores,self.similarityScoreRanges)
         self.VP=self.bucketPhrases(patterns_manager.VP_nC2_scores,self.similarityScoreRanges)
-        groupByMeaning()
-        ##self.allPhrases=phraseStructure = {"VP":{1:[],2:[],3:[],4:[]},"APP":[],"NPP":[],"NN":[]}
-
+        
+        self.allPhrases={"VP":{1:[],2:[],3:[],4:[]},"APP":[],"NPP":[],"NN":[]}
+        groupByMeaning(allPhrases,"VP")
+        groupByMeaning(allPhrases,"APP")
+        groupByMeaning(allPhrases,"NP")
     # since similar phrases have been sorted based on similarity
     #  this just assigns to buckets based on percentage... bound to be duplicates
     #  this can be adressed when actually graphing 
@@ -152,3 +154,5 @@ class Similarity_Analyzer:
                 phraseStructure["NN"].append(phrase)
                 return
 
+    def getAllPhrases(self):
+        return self.allPhrases
