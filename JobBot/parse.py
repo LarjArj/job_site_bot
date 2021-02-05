@@ -12,7 +12,7 @@ import re
 Jobs = indeedBot.traverse()
 
 class Words_Phrases:
-    def __init__(self):
+    def __init__(self,jobs):
         self.jobs = Jobs # Raw Input of all the jobs
         self.jobs_str = "".join(self.jobs)
 
