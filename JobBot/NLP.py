@@ -14,20 +14,38 @@ class NLP_Manager:
         self.pattern_manager = Pattern_Manager()
         self.similarity_analyzer = Similarity_Analyzer()
         self.allPhrases = similarity_analyzer.getAllPhrases()
-        self.jobs = indeedBot.traverse(#jobTitle,#location)
-
-
-
-    def getStatisticallyRelevantPhrases(self,allPhrases):
+        #self.jobs = indeedBot.traverse(#jobTitle,#location)
+    
+    
+    def relevantPhrases(self,allPhrase):
         seen = {}
         StatisticallyRelevantPhrases = []
-        for phrase in allPhrases:
+        for phrase in allPhrase:
             if seen[phrase]:
                 continue
             if phrase not in seen:
                 seen[phrase] = True
             StatisticallyRelevantPhrases.append(phrase)
         return StatisticallyRelevantPhrases
+
+        
+
+            
+
+
+            
+
+    
+    # def RelevantPhrases(self,allPhrases):
+    #     seen = {}
+    #     StatisticallyRelevantPhrases = []
+    #     for phrase in allPhrases:
+    #         if seen[phrase]:
+    #             continue
+    #         if phrase not in seen:
+    #             seen[phrase] = True
+    #         StatisticallyRelevantPhrases.append(phrase)
+    #     return StatisticallyRelevantPhrases
 
 
 
