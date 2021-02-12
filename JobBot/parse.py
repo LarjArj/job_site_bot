@@ -12,8 +12,9 @@ import re
 Jobs = indeedBot.traverse()
 
 class Words_Phrases:
-    def __init__(self,jobs):
-        self.jobs = Jobs # Raw Input of all the jobs
+    def __init__(self,jobTitle,location):
+        
+        self.jobs = indeedBot.traverse(jobTitle,location)
         self.jobs_str = "".join(self.jobs)
 
         self.tokens = tokenize(self.jobs_str)

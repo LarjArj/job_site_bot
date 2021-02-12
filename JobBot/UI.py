@@ -22,8 +22,10 @@ while True:
 
 # Finish up by removing from the screen
 window.close()
-print(values)
 
+job,location = values['-INPUT-'],values['-INPUT-0']
+
+print(job+","+location)
 
 #values=
 

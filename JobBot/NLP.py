@@ -7,10 +7,13 @@ from patterns import Pattern_Manager
 import groupBySimilarities 
 from groupBySimilarities import Similarity_Analyzer
 
-class NLP_Manager:
+
+class UI_NLP_Manager:
 
     def __init__(self):
-        self.words_phrases = Words_Phrases()
+       ## self.job,location = import UI
+
+        self.words_phrases = Words_Phrases(job,location)
         self.pattern_manager = Pattern_Manager()
         self.similarity_analyzer = Similarity_Analyzer()
         self.allPhrases = similarity_analyzer.getAllPhrases()
