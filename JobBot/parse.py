@@ -9,7 +9,7 @@ from nltk.tokenize import PunktSentenceTokenizer
 import wikipedia
 import re
 
-Jobs = indeedBot.traverse()
+
 
 class Words_Phrases:
     def __init__(self,jobTitle,location):

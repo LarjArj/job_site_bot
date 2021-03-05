@@ -11,9 +11,9 @@ from groupBySimilarities import Similarity_Analyzer
 class UI_NLP_Manager:
 
     def __init__(self):
-       ## self.job,location = import UI
+        #self.job,location = import UI
 
-        self.words_phrases = Words_Phrases(job,location)
+        self.words_phrases = Words_Phrases("software engineer","NY")
         self.pattern_manager = Pattern_Manager()
         self.similarity_analyzer = Similarity_Analyzer()
         self.allPhrases = similarity_analyzer.getAllPhrases()

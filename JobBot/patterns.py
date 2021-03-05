@@ -10,7 +10,7 @@ from difflib import SequenceMatcher
 
 
 
-words_phrases = Words_Phrases()
+words_phrases = Words_Phrases("software engineer","")
 
 #nltk library used for tagging and chunking words/phrases
 
