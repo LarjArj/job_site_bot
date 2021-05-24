@@ -56,13 +56,6 @@ class Stats_Graph_Manager:
         pass
  
         
-
-def graph(self):
-
-    #still thinking about what would be the best way to do so
-
-    # Strategy for no
-    pass
         
 
 
